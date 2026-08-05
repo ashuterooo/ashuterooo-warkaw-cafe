@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | Warkaw Cafe and Restaurant</title>
+    <style>
+        :root {
+            --primary: #d4af37;
+            --secondary: #8b0000;
+            --dark: #0f0f0f;
+            --light: #f4f4f4;
+            --glow-color: rgba(212, 175, 55, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 40px 20px;
+        }
+
+        .header-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            color: #aaa;
+            font-size: 1.1rem;
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        /* Menu Grid Layout */
+        .menu-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(25, 25, 25, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .item-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--light);
+        }
+
+        .item-price {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: bold;
+            white-space: nowrap;
+            margin-left: 15px;
+        }
+
+        .back-btn {
+            display: block;
+            width: fit-content;
+            margin: 50px auto 20px;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px var(--primary);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <h1>ዋርካው ካፌ የምግብ ዝርዝር</h1>
+        <p class="subtitle">Warkaw Cafe & Restaurant Complete Menu</p>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="filter-tabs">
+        <button class="tab-btn active" onclick="filterMenu('All', this)">All Items</button>
+        <button class="tab-btn" onclick="filterMenu('Restaurant', this)">Restaurant</button>
+        <button class="tab-btn" onclick="filterMenu('Cafe', this)">Cafe</button>
+        <button class="tab-btn" onclick="filterMenu('Bar', this)">Bar</button>
+    </div>
+
+    <!-- Menu Items Grid Container -->
+    <div class="menu-grid" id="menu-container">
+        <!-- Populated dynamically via JavaScript -->
+    </div>
+
+    <a href="index.html" class="back-btn">Back to Home</a>
+
+    <script>
+        // Full menu items parsed directly from your Excel sheet
+        const menuData = [
+            // Restaurant Items
+            { name: "Shiro", department: "Restaurant", price: "180 ETB" },
+            { name: "Special Shiro", department: "Restaurant", price: "210 ETB" },
+            { name: "Beyayenet", department: "Restaurant", price: "280 ETB" },
+            { name: "Shiro Tegabino", department: "Restaurant", price: "210 ETB" },
+            { name: "Shiro Lala", department: "Restaurant", price: "210 ETB" },
+            { name: "Fasting Firfir", department: "Restaurant", price: "190 ETB" },
+            { name: "Special Fasting Firfir", department: "Restaurant", price: "230 ETB" },
+            { name: "Pasta with Vegetable", department: "Restaurant", price: "220 ETB" },
+            { name: "Rice with Vegetable", department: "Restaurant", price: "220 ETB" },
+            { name: "Rice with Tomato", department: "Restaurant", price: "240 ETB" },
+            { name: "Vegetable with Bread", department: "Restaurant", price: "220 ETB" },
+            { name: "Dinich Firfir", department: "Restaurant", price: "230 ETB" },
+            { name: "Special Dinich Firfir", department: "Restaurant", price: "250 ETB" },
+            { name: "Telba Fitfit", department: "Restaurant", price: "180 ETB" },
+            { name: "Suf Fitfit", department: "Restaurant", price: "180 ETB" },
+            { name: "Special Suf Fitfit", department: "Restaurant", price: "200 ETB" },
+            { name: "Spaghetti Bolognese", department: "Restaurant", price: "320 ETB" },
+            { name: "Special Spaghetti", department: "Restaurant", price: "380 ETB" },
+            { name: "Macaroni Special", department: "Restaurant", price: "350 ETB" },
+            { name: "Tibs Firfir", department: "Restaurant", price: "380 ETB" },
+            { name: "Special Tibs Firfir", department: "Restaurant", price: "450 ETB" },
+            { name: "Doro Wat", department: "Restaurant", price: "480 ETB" },
+            { name: "Beef Tibs", department: "Restaurant", price: "450 ETB" },
+            { name: "Special Beef Tibs", department: "Restaurant", price: "520 ETB" },
+            { name: "Kitfo", department: "Restaurant", price: "500 ETB" },
+            { name: "Special Kitfo", department: "Restaurant", price: "580 ETB" },
+            { name: "Gored Gored", department: "Restaurant", price: "490 ETB" },
+            { name: "Fish Goulash", department: "Restaurant", price: "450 ETB" },
+            { name: "Whole Fried Fish", department: "Restaurant", price: "550 ETB" },
+            { name: "Special Fish Cutlet", department: "Restaurant", price: "480 ETB" },
+
+            // Cafe Items
+            { name: "Fetira", department: "Cafe", price: "250 ETB" },
+            { name: "Special Fetira", department: "Cafe", price: "280 ETB" },
+            { name: "Chechebsa", department: "Cafe", price: "230 ETB" },
+            { name: "Special chechebsa", department: "Cafe", price: "290 ETB" },
+            { name: "Scrambled Egg", department: "Cafe", price: "230 ETB" },
+            { name: "Boiled Egg", department: "Cafe", price: "35 ETB" },
+            { name: "Plain Omelette", department: "Cafe", price: "150 ETB" },
+            { name: "Special Omelette", department: "Cafe", price: "210 ETB" },
+            { name: "Full English Breakfast", department: "Cafe", price: "380 ETB" },
+            { name: "Pancakes with Honey", department: "Cafe", price: "180 ETB" },
+            { name: "Club Sandwich", department: "Cafe", price: "320 ETB" },
+            { name: "Tuna Sandwich", department: "Cafe", price: "290 ETB" },
+            { name: "Cheese Sandwich", department: "Cafe", price: "220 ETB" },
+            { name: "Burger", department: "Cafe", price: "350 ETB" },
+            { name: "Special Burger with Cheese", department: "Cafe", price: "420 ETB" },
+            { name: "Macchiato", department: "Cafe", price: "45 ETB" },
+            { name: "Large Macchiato", department: "Cafe", price: "60 ETB" },
+            { name: "Single Espresso", department: "Cafe", price: "40 ETB" },
+            { name: "Double Espresso", department: "Cafe", price: "70 ETB" },
+            { name: "Black Coffee (Jebena)", department: "Cafe", price: "30 ETB" },
+            { name: "Café Latte", department: "Cafe", price: "80 ETB" },
+            { name: "Cappuccino", department: "Cafe", price: "85 ETB" },
+            { name: "Special Spiced Tea", department: "Cafe", price: "35 ETB" },
+            { name: "Milk Tea", department: "Cafe", price: "50 ETB" },
+            { name: "Hot Chocolate", department: "Cafe", price: "110 ETB" },
+
+            // Bar Items
+            { name: "Soft Drinks (Coca, Fanta, Sprite)", department: "Bar", price: "70 ETB" },
+            { name: "2 Liter Water", department: "Bar", price: "70 ETB" },
+            { name: "1 Liter Water", department: "Bar", price: "60 ETB" },
+            { name: "Half-Liter Water", department: "Bar", price: "50 ETB" },
+            { name: "Malta Guinness", department: "Bar", price: "110 ETB" },
+            { name: "Ambo Mineral Water", department: "Bar", price: "60 ETB" },
+            { name: "Fresh Avocado Juice", department: "Bar", price: "150 ETB" },
+            { name: "Fresh Mango Juice", department: "Bar", price: "140 ETB" },
+            { name: "Fresh Papaya Juice", department: "Bar", price: "130 ETB" },
+            { name: "Special Mixed Fruit Juice", department: "Bar", price: "180 ETB" },
+            { name: "St. George Beer", department: "Bar", price: "90 ETB" },
+            { name: "Habesha Beer", department: "Bar", price: "95 ETB" },
+            { name: "Walia Beer", department: "Bar", price: "95 ETB" },
+            { name: "Draft Beer (Large)", department: "Bar", price: "100 ETB" },
+            { name: "Red Wine (Glass)", department: "Bar", price: "250 ETB" }
+        ];
+
+        // Function to render items
+        function renderMenu(category) {
+            const container = document.getElementById('menu-container');
+            container.innerHTML = '';
+
+            const filtered = category === 'All' 
+                ? menuData 
+                : menuData.filter(item => item.department === category);
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'menu-item';
+                card.innerHTML = `
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-price">${item.price}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Tab Filtering Handler
+        function filterMenu(category, btnElement) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            renderMenu(category);
+        }
+
+        // Initial Load
+        renderMenu('All');
+    </script>
+</body>
+</html>
