@@ -25,7 +25,6 @@
             color: var(--light);
             overflow-x: hidden;
             position: relative;
-            cursor: default;
         }
 
         /* Cursor Glow Light Effect */
@@ -54,25 +53,45 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 50px;
-            background: rgba(15, 15, 15, 0.85);
+            padding: 15px 50px;
+            background: rgba(15, 15, 15, 0.9);
             backdrop-filter: blur(10px);
             z-index: 1000;
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
         }
 
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-container img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            object-fit: cover;
+        }
+
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: bold;
             color: var(--primary);
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             text-transform: uppercase;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 25px;
         }
 
         nav ul li a {
@@ -85,6 +104,24 @@
         nav ul li a:hover {
             color: var(--primary);
             text-shadow: 0 0 10px var(--primary);
+        }
+
+        /* Language Switcher Button */
+        .lang-btn {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: 0 0 10px var(--primary);
         }
 
         /* Hero Section */
@@ -101,11 +138,11 @@
         }
 
         .hero h1 {
-            font-size: 4rem;
+            font-size: 3.5rem;
             color: var(--primary);
             margin-bottom: 20px;
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
         }
 
@@ -151,7 +188,7 @@
             letter-spacing: 2px;
         }
 
-        /* Departments & Menu Grid */
+        /* Grid Cards */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -165,7 +202,6 @@
             padding: 30px;
             text-align: center;
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
         }
 
         .card:hover {
@@ -186,7 +222,7 @@
             line-height: 1.6;
         }
 
-        /* About & Leadership */
+        /* About Section */
         .about-content {
             display: flex;
             flex-direction: column;
@@ -229,20 +265,11 @@
             font-weight: bold;
         }
 
-        /* Responsive Design */
         @media(max-width: 768px) {
-            header {
-                padding: 20px;
-            }
-            nav ul {
-                display: none;
-            }
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            section {
-                padding: 60px 20px;
-            }
+            header { padding: 15px 20px; }
+            nav ul { display: none; }
+            .hero h1 { font-size: 2.3rem; }
+            section { padding: 60px 20px; }
         }
     </style>
 </head>
@@ -253,73 +280,83 @@
 
     <!-- Header Navigation -->
     <header>
-        <div class="logo">Warkaw Cafe</div>
+        <div class="logo-container">
+            <img src="logo.jpg" alt="Warkaw Logo">
+            <div class="logo" data-en="Warkaw Cafe" data-am="ቆርካው ካፌ">Warkaw Cafe</div>
+        </div>
         <nav>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#departments">Departments</a></li>
-                <li><a href="#about">About CEO</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#home" data-en="Home" data-am="መነሻ">Home</a></li>
+                <li><a href="#departments" data-en="Departments" data-am="ክፍሎች">Departments</a></li>
+                <li><a href="#about" data-en="About CEO" data-am="ስለ ስራ አስኪያጁ">About CEO</a></li>
+                <li><a href="#contact" data-en="Contact" data-am="አግኙን">Contact</a></li>
             </ul>
+            <button class="lang-btn" onclick="toggleLanguage()">አማርኛ / EN</button>
         </nav>
     </header>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <h1>Warkaw Cafe & Restaurant</h1>
-        <p>Experience the finest hospitality, rich coffee blends, delicious culinary dishes, and premium refreshments right in the heart of Bahir Dar, Ethiopia.</p>
-        <a href="#departments" class="btn">Explore Our Menu</a>
+        <h1 data-en="Warkaw Cafe and Restaurant" data-am="ቆርካው ካፌ እና restaurant">Warkaw Cafe and Restaurant</h1>
+        <p data-en="Experience the finest hospitality, rich coffee blends, delicious culinary dishes, and premium refreshments right in the heart of Bahir Dar, Ethiopia." data-am="በባህር ዳር እምብርት ውስጥ ምርጥ መስተንግዶን፣ የበለፀገ ቡና፣ ጣፋጭ ምግቦችን እና ጥራት ያላቸውን መጠጦች ይለማመዱ።">Experience the finest hospitality, rich coffee blends, delicious culinary dishes, and premium refreshments right in the heart of Bahir Dar, Ethiopia.</p>
+        <a href="#departments" class="btn" data-en="Explore Our Menu" data-am="የምግብ ዝርዝራችንን ይመልከቱ">Explore Our Menu</a>
     </section>
 
     <!-- Departments Section -->
     <section id="departments">
-        <h2 class="section-title">Our Departments</h2>
+        <h2 class="section-title" data-en="Our Departments" data-am="የስራ ክፍሎቻችን">Our Departments</h2>
         <div class="grid">
             <div class="card">
-                <h3>Restaurant</h3>
-                <p>Indulge in our exquisite selection of fine food, traditional platters, and main dishes crafted fresh daily with local flavors.</p>
+                <h3 data-en="Restaurant" data-am="ሬስቶራንት">Restaurant</h3>
+                <p data-en="Indulge in our exquisite selection of fine food, traditional platters, and main dishes crafted fresh daily with local flavors." data-am="በሀገር ውስጥ ጣዕም በየቀኑ አዲስ በሚዘጋጁ ምርጥ ምግቦች እና ባህላዊ ምግቦች ይደሰቱ።">Indulge in our exquisite selection of fine food, traditional platters, and main dishes crafted fresh daily with local flavors.</p>
             </div>
             <div class="card">
-                <h3>Cafe</h3>
-                <p>Savor authentic Ethiopian coffee, specialized hot beverages, aromatic teas, and freshly baked delightful pastries.</p>
+                <h3 data-en="Cafe" data-am="ካፌ">Cafe</h3>
+                <p data-en="Savor authentic Ethiopian coffee, specialized hot beverages, aromatic teas, and freshly baked delightful pastries." data-am="እውነተኛ የኢትዮጵያ ቡና፣ ልዩ ሙቅ መጠጦች፣ ጥሩ መዓዛ ያላቸው ሻይ እና አዲስ የተጋገሩ ኬኮችን ይቅመሱ።">Savor authentic Ethiopian coffee, specialized hot beverages, aromatic teas, and freshly baked delightful pastries.</p>
             </div>
             <div class="card">
-                <h3>Bar</h3>
-                <p>Refresh yourself with our premium cold drinks, natural fresh fruit juices, cocktails, and exclusive beverages.</p>
+                <h3 data-en="Bar" data-am="ባር">Bar</h3>
+                <p data-en="Refresh yourself with our premium cold drinks, natural fresh fruit juices, cocktails, and exclusive beverages." data-am="በፕሪሚየም ቀዝቃዛ መጠጦች፣ በንጹህ የፍራፍሬ ጭማቂዎች እና ልዩ መጠጦች ይታደሱ።">Refresh yourself with our premium cold drinks, natural fresh fruit juices, cocktails, and exclusive beverages.</p>
             </div>
         </div>
     </section>
 
     <!-- Leadership / About Section -->
     <section id="about">
-        <h2 class="section-title">Leadership & Vision</h2>
+        <h2 class="section-title" data-en="Leadership & Vision" data-am="ስራ አስኪያጅ እና ራዕይ">Leadership & Vision</h2>
         <div class="about-content">
             <h3>Fikiru Wassie</h3>
-            <p style="color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Owner & CEO</p>
-            <p>Under the visionary leadership of CEO Fikiru Wassie, Warkaw Cafe and Restaurant has set a high standard for quality dining, efficient automated point-of-sale services, and exceptional guest satisfaction in Bahir Dar. We blend traditional warmth with modern operational excellence.</p>
+            <p style="color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;" data-en="Owner & CEO" data-am="ባለቤት እና ዋና ስራ አስኪያጅ">Owner & CEO</p>
+            <p data-en="Under the visionary leadership of CEO Fikiru Wassie, Warkaw Cafe and Restaurant has set a high standard for quality dining, efficient automated point-of-sale services, and exceptional guest satisfaction in Bahir Dar. We blend traditional warmth with modern operational excellence." data-am="በዋና ስራ አስኪያጅ ፍቅሩ ዋሴ አርቆ አስተዋይነት ቆርካው ካፌ እና ሬስቶራንት በባህር ዳር ከፍተኛ የጥራት ደረጃን፣ ዘመናዊ የክፍያ ስርዓትን እና ልዩ የእንግዳ እርካታን አስመስቋል።">Under the visionary leadership of CEO Fikiru Wassie, Warkaw Cafe and Restaurant has set a high standard for quality dining, efficient automated point-of-sale services, and exceptional guest satisfaction in Bahir Dar. We blend traditional warmth with modern operational excellence.</p>
         </div>
     </section>
 
     <!-- Contact & Location Footer -->
     <footer id="contact">
-        <h2 class="section-title" style="font-size: 2rem; margin-bottom: 20px;">Visit & Connect</h2>
-        <p>📍 Location: Bahir Dar, Amhara, Ethiopia</p>
+        <h2 class="section-title" style="font-size: 2rem; margin-bottom: 20px;" data-en="Visit & Connect" data-am="አድራሻና ግንኙነት">Visit & Connect</h2>
+        <p data-en="📍 Location: Bahir Dar, Amhara, Ethiopia" data-am="📍 አድራሻ፡ ባህር ዳር፣ አማራ፣ ኢትዮጵያ">📍 Location: Bahir Dar, Amhara, Ethiopia</p>
         <p>📞 Mobile: <a href="tel:+251918719249" style="color: var(--primary); text-decoration: none;">+251 918 719 249</a></p>
         <br>
         <p>&copy; 2026 Warkaw Cafe and Restaurant. All Rights Reserved.</p>
-        <p>Managed under CEO <span class="ceo-credit">Fikiru Wassie</span></p>
+        <p><span data-en="Managed under CEO" data-am="የሚተዳደረው በዋና ስራ አስኪያጅ">Managed under CEO</span> <span class="ceo-credit">Fikiru Wassie</span></p>
     </footer>
 
-    <!-- Interactive Cursor Script -->
+    <!-- Interactive Scripts -->
     <script>
+        // Cursor Light Follower
         const cursorLight = document.getElementById('cursor-light');
-
         window.addEventListener('mousemove', (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
-            
-            cursorLight.style.transform = `translate(${x}px, ${y}px)`;
+            cursorLight.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
         });
+
+        // Language Toggle Function
+        let currentLang = 'en';
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'am' : 'en';
+            document.querySelectorAll('[data-en]').forEach(el => {
+                el.innerText = el.getAttribute(`data-${currentLang}`);
+            });
+        }
     </script>
 </body>
 </html>
